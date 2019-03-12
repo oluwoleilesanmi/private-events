@@ -1,10 +1,20 @@
 class SessionsController < ApplicationController
-  def new
-  end
-
+  def new 
+	end
+  
   def create
-  end
+    @user = User.find_by_name(params[:session][:name])
+    if @user
+      session[:user_id] = @user.id
+      redirect_to '/'
+    else
+      redirect_to '/login'
+    end 
+  end 
 
-  def destroy
-  end
+  def destroy 
+    session[:user_id] = nil 
+    redirect_to '/' 
+	end
+
 end
